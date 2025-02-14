@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.get('/api/queue', async (req, res) => { 
     try {
-        const playlistId = 'PLGpLqaMxppFp05ujpCXMpwwTociDcIF53'; // Example playlist ID
+        const playlistId = 'PLafSq5UblCNWzrBiEOwBeIdoU8AFXfTqp'; // Example playlist ID
         const tracks = await getPlaylist(playlistId);
         res.json(tracks);
     } catch (error) {
