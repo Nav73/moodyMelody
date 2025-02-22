@@ -3,4 +3,8 @@ requirements/personalData.txt
 model
 haarcascade_frontalface_default.xml
 emotionDetection/TrainEmotionDetector.py
+back-moody-melody/songs
 
+FrontPages.pdf
+MinorProjectReport.docx
+songs

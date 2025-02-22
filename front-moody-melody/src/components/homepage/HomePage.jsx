@@ -1,12 +1,16 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
-import NavBar from './Homepage Sections/NavBar';
-import MainSection from './Homepage Sections/MainSection';
-import RightSection from './Homepage Sections/RightSection';
-import YouTubePlayer from '../../../Player/musicPlayer';
+import NavBar from "./Homepage Sections/NavBar";
+import MainSection from "./Homepage Sections/MainSection";
+import RightSection from "./Homepage Sections/RightSection";
+import YouTubePlayer from "../../../Player/musicPlayer";
+
+// ankit
+import EmotionMusicPlayer from "../EmotionMusicPlayer"; // Adjust path if needed
+//ankit
 
 const baseURL = import.meta.env.VITE_BASE_URL;
-console.log('baseURL:', baseURL);
+console.log("baseURL:", baseURL);
 const HomePage = () => {
   const [queue, setQueue] = useState([]);
   const [newReleases, setNewReleases] = useState([]);
@@ -18,8 +22,10 @@ const HomePage = () => {
         const playingSongId = YouTubePlayer.getPlayingSongId();
         if (!playingSongId) return;
 
-        const response = await fetch(`${baseURL}/api/current-song/${playingSongId}`);
-        if (!response.ok) throw new Error('Failed to fetch song details');
+        const response = await fetch(
+          `${baseURL}/api/current-song/${playingSongId}`
+        );
+        if (!response.ok) throw new Error("Failed to fetch song details");
 
         const videoData = await response.json();
         setCurrentSong({
@@ -27,7 +33,7 @@ const HomePage = () => {
           cover: videoData.thumbnail,
         });
       } catch (error) {
-        console.error('Error fetching song details:', error);
+        console.error("Error fetching song details:", error);
       }
     };
 
@@ -37,18 +43,17 @@ const HomePage = () => {
     return () => clearInterval(interval);
   }, []);
 
-
   useEffect(() => {
     const fetchQueue = async () => {
       try {
         const response = await fetch(`${baseURL}/api/queue`);
 
-        if (!response.ok) throw new Error('Failed to fetch queue');
-        
+        if (!response.ok) throw new Error("Failed to fetch queue");
+
         const data = await response.json();
         setQueue(data);
       } catch (error) {
-        console.error('Error fetching queue:', error);
+        console.error("Error fetching queue:", error);
       }
     };
 
@@ -59,26 +64,37 @@ const HomePage = () => {
     const fetchNewReleases = async () => {
       try {
         const response = await fetch(`${baseURL}/api/new-releases`);
-        if (!response.ok) throw new Error('Failed to fetch new releases');
+        if (!response.ok) throw new Error("Failed to fetch new releases");
 
         const data = await response.json();
         setNewReleases(data);
       } catch (error) {
-        console.error('Error fetching new releases:', error);
+        console.error("Error fetching new releases:", error);
       }
     };
 
     fetchNewReleases();
   }, []);
 
+  // return (
+  //   <div className="container">
+  //     <NavBar />
+  //     <MainSection newReleases={newReleases} currentSong={currentSong} />
+  //     <RightSection queue={queue} />
+  //     <div id="youtube-player"></div>
+  //   </div>
+  // );
+
   return (
     <div className="container">
       <NavBar />
       <MainSection newReleases={newReleases} currentSong={currentSong} />
       <RightSection queue={queue} />
+      <EmotionMusicPlayer /> {/* Add Emotion-Based Music Player Here */}
       <div id="youtube-player"></div>
     </div>
-  );
+);
+
 };
 
 export default HomePage;
