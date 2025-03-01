@@ -3,4 +3,4 @@ requirements/personalData.txt
 model
 haarcascade_frontalface_default.xml
 emotionDetection/TrainEmotionDetector.py
-
+MinorProjectReport.docx
